@@ -6,11 +6,11 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
+import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -20,7 +20,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class FirstPage : AppCompatActivity() {
 
     private var btn: Button? = null
     private var imageView: ImageView? = null
@@ -29,11 +29,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_first)
 
         btn = findViewById<View>(R.id.button_take_photo) as Button
         imageView = findViewById<View>(R.id.imageView) as ImageView
-
         btn!!.setOnClickListener { showPictureDialog() }
     }
 
@@ -68,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                     createImageFile()
                 } catch (ex: IOException) {
                     // Error occurred while creating the File
-                    Toast.makeText(this@MainActivity, "A problem occurred.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "A problem occurred.", Toast.LENGTH_SHORT).show()
                     null
                 }
                 // Continue only if the File was successfully created
@@ -97,12 +96,12 @@ class MainActivity : AppCompatActivity() {
                 try {
                     //To show the image gotten
                     val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
-                    Toast.makeText(this@MainActivity, "Image Saved!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
                     imageView!!.setImageBitmap(bitmap)
 
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    Toast.makeText(this@MainActivity, "Failed!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -122,8 +121,8 @@ class MainActivity : AppCompatActivity() {
                 val myBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
                 imageView!!.setImageBitmap(myBitmap)
 
-                Toast.makeText(this@MainActivity, "Image Saved!", Toast.LENGTH_SHORT).show()
-            } else Toast.makeText(this@MainActivity, "Failed!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
         }
     }
 
