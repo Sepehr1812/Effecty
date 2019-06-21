@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
@@ -16,24 +17,33 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
+import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class FirstPage : AppCompatActivity() {
 
-    private var btn: Button? = null
-    private var imageView: ImageView? = null
+    private var takePhotoButton: Button? = null
+    private var selectedImage: ImageView? = null
+    private var nextButton: Button? = null
+    private var imageFile: File? = null
     private val gallery = 2
     private val camera = 1
+    private var currentPhotoPath: String = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first)
 
-        btn = findViewById<View>(R.id.button_take_photo) as Button
-        imageView = findViewById<View>(R.id.imageView) as ImageView
-        btn!!.setOnClickListener { showPictureDialog() }
+        takePhotoButton = findViewById<View>(R.id.button_take_photo) as Button
+        selectedImage = findViewById<View>(R.id.image_view) as ImageView
+        nextButton = findViewById(R.id.next_page_button)
+        takePhotoButton!!.setOnClickListener { showPictureDialog() }
+        nextButton!!.setOnClickListener { goToSecondPage(imageFile!!) }
     }
 
     /** Actions for Give me a photo button */
@@ -97,41 +107,30 @@ class FirstPage : AppCompatActivity() {
                     //To show the image gotten
                     val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
                     Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
-                    imageView!!.setImageBitmap(bitmap)
-
+                    selectedImage!!.setImageBitmap(bitmap)
+                    bitmapToFile(bitmap) //To save the temp image
                 } catch (e: IOException) {
                     e.printStackTrace()
                     Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
                 }
 
             }
-
         } else if (requestCode == camera) {
-            /* An error occurred here and I (Sepehr) don't know why!
-               Error: java.lang.RuntimeException: Failure delivering result ResultInfo{who=null, request=1, result=-1, data=null}
-                to activity {com.example.effecty/com.example.effecty.MainActivity}: kotlin.KotlinNullPointerException
-             */
-//            val thumbnail = data!!.extras!!.get("data") as Bitmap
-//            imageView!!.setImageBitmap(thumbnail)
-
             //To show the image captured
             val imgFile = File(currentPhotoPath)
 
             if (imgFile.exists()) {
-                val myBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
-                imageView!!.setImageBitmap(myBitmap)
+                val bitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
+                selectedImage!!.setImageBitmap(bitmap)
 
                 Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
             } else Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private var currentPhotoPath: String = ""
-
-    /** To create initial image file */
+    /** To create the temp image file in Android directory */
     @SuppressLint("SimpleDateFormat")
-    @Throws(IOException::class)
-    private fun createImageFile(): File {
+    private fun createTempImageFile(): File {
         // Create an image file name
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val storageDir: File = getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!
@@ -143,5 +142,39 @@ class FirstPage : AppCompatActivity() {
             // Save a file: path for use with ACTION_VIEW intents
             currentPhotoPath = absolutePath
         }
+    }
+
+    /** To create initial image file */
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        val file = createTempImageFile()
+
+        imageFile = file
+        return file
+    }
+
+    /** Method to save a bitmap to a file */
+    private fun bitmapToFile(bitmap: Bitmap) {
+        val file = createTempImageFile()
+
+        try {
+            // Compress the bitmap and save in jpg format
+            val stream: OutputStream = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            stream.flush()
+            stream.close()
+        } catch (e: IOException) {
+            Toast.makeText(this, "A problem occurred.", Toast.LENGTH_SHORT).show()
+        }
+
+        imageFile = file
+    }
+
+    private fun goToSecondPage(image: File) {
+        if (imageFile != null)
+            print(
+                "This is a message that shows the goToSecondPage method works." +
+                        "The absolute path of the image file is: ${image.absolutePath}"
+            )
     }
 }
