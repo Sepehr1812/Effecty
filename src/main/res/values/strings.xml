@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">Effecty</string>
     <string name="take_photo_button">Give Me a Photo!</string>
-    <string name="image_view_des">The Image</string>
+    <string name="image_view_des_first">The Image</string>
     <string name="go_to_second_page">Next</string>
+
+    <string name="image_view_des_sec">The Image</string>
+    <string name="resize">Resize</string>
+    <string name="crop">Crop</string>
+    <string name="grid">Grid</string>
+    <string name="blur">Blur</string>
+    <string name="paint">Paint</string>
+    <string name="effect">Choose an Effect</string>
+    <string name="addition">Choose a Addition</string>
+    <string name="go_to_save">Save</string>
 </resources>

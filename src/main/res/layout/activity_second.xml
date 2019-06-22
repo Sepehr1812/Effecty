@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+
+    <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="32dp">
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" tools:layout_editor_absoluteY="102dp"
+                tools:layout_editor_absoluteX="16dp">
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" tools:srcCompat="@tools:sample/avatars"
+                    android:id="@+id/image_view_sec" app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="16dp" app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="16dp" android:layout_marginTop="32dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:contentDescription="@string/image_view_des_sec"
+            />
+            <Button
+                    android:text="@string/resize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/resize_button"
+                    app:layout_constraintBottom_toTopOf="@+id/crop_button"
+                    app:layout_constraintTop_toBottomOf="@+id/image_view_sec"/>
+            <Button
+                    android:text="@string/crop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/crop_button"
+                    app:layout_constraintBottom_toTopOf="@+id/grid_button"/>
+            <Button
+                    android:text="@string/grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/grid_button"
+                    app:layout_constraintBottom_toTopOf="@+id/blur_button"/>
+            <Button
+                    android:text="@string/blur"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/blur_button"
+                    app:layout_constraintBottom_toTopOf="@+id/paint_button"/>
+            <Button
+                    android:text="@string/paint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/paint_button"
+                    app:layout_constraintBottom_toTopOf="@+id/effect_button"/>
+            <Button
+                    android:text="@string/effect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/effect_button"
+                    app:layout_constraintBottom_toTopOf="@+id/addition_button"/>
+            <Button
+                    android:text="@string/addition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/addition_button"
+                    android:layout_marginBottom="16dp" app:layout_constraintBottom_toBottomOf="parent"/>
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+    <Button
+            android:text="@string/go_to_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/save_button" android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"/>
+</android.support.constraint.ConstraintLayout>

@@ -33,5 +33,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".FirstPage"/>
+        <activity android:name=".SecondPage"/>
     </application>
 </manifest>

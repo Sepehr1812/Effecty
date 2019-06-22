@@ -29,10 +29,13 @@ class FirstPage : AppCompatActivity() {
     private var takePhotoButton: Button? = null
     private var selectedImage: ImageView? = null
     private var nextButton: Button? = null
-    private var imageFile: File? = null
     private val gallery = 2
     private val camera = 1
     private var currentPhotoPath: String = ""
+
+    companion object {
+        var imageFile: Bitmap? = null
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,10 +43,10 @@ class FirstPage : AppCompatActivity() {
         setContentView(R.layout.activity_first)
 
         takePhotoButton = findViewById<View>(R.id.button_take_photo) as Button
-        selectedImage = findViewById<View>(R.id.image_view) as ImageView
+        selectedImage = findViewById<View>(R.id.image_view_first) as ImageView
         nextButton = findViewById(R.id.next_page_button)
         takePhotoButton!!.setOnClickListener { showPictureDialog() }
-        nextButton!!.setOnClickListener { goToSecondPage(imageFile!!) }
+        nextButton!!.setOnClickListener { goToSecondPage() }
     }
 
     /** Actions for Give me a photo button */
@@ -109,6 +112,7 @@ class FirstPage : AppCompatActivity() {
                     Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
                     selectedImage!!.setImageBitmap(bitmap)
                     bitmapToFile(bitmap) //To save the temp image
+                    imageFile = bitmap
                 } catch (e: IOException) {
                     e.printStackTrace()
                     Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
@@ -122,6 +126,7 @@ class FirstPage : AppCompatActivity() {
             if (imgFile.exists()) {
                 val bitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
                 selectedImage!!.setImageBitmap(bitmap)
+                imageFile = bitmap
 
                 Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
             } else Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
@@ -147,10 +152,8 @@ class FirstPage : AppCompatActivity() {
     /** To create initial image file */
     @Throws(IOException::class)
     private fun createImageFile(): File {
-        val file = createTempImageFile()
 
-        imageFile = file
-        return file
+        return createTempImageFile()
     }
 
     /** Method to save a bitmap to a file */
@@ -166,15 +169,17 @@ class FirstPage : AppCompatActivity() {
         } catch (e: IOException) {
             Toast.makeText(this, "A problem occurred.", Toast.LENGTH_SHORT).show()
         }
-
-        imageFile = file
     }
 
-    private fun goToSecondPage(image: File) {
-        if (imageFile != null)
-            print(
-                "This is a message that shows the goToSecondPage method works." +
-                        "The absolute path of the image file is: ${image.absolutePath}"
-            )
+    private fun goToSecondPage() {
+        if (imageFile != null) {
+            val secondIntent = Intent(this, SecondPage::class.java)
+            startActivity(secondIntent)
+        } else {
+            val dialog = AlertDialog.Builder(this)
+            dialog.setTitle("No picture selected")
+            dialog.setMessage("You have not selected any picture yet!")
+            dialog.show()
+        }
     }
 }
