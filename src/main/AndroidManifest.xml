@@ -25,14 +25,14 @@
                     android:name="android.support.FILE_PROVIDER_PATHS"
                     android:resource="@xml/file_paths"/>
         </provider>
-        <activity android:name=".MainActivity">
+        <activity android:name=".FirstPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".FirstPage"/>
-        <activity android:name=".SecondPage"/>
+        <activity android:name=".SecondPage" android:parentActivityName=".FirstPage"/>
+        <activity android:name=".SavePage" android:parentActivityName=".SecondPage"/>
     </application>
 </manifest>

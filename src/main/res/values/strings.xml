@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">Effecty</string>
+
+    <!--For FirstPage-->
     <string name="take_photo_button">Give Me a Photo!</string>
     <string name="image_view_des_first">The Image</string>
     <string name="go_to_second_page">Next</string>
 
+    <!--For SecondPage-->
     <string name="image_view_des_sec">The Image</string>
     <string name="resize">Resize</string>
     <string name="crop">Crop</string>
@@ -11,6 +14,10 @@
     <string name="blur">Blur</string>
     <string name="paint">Paint</string>
     <string name="effect">Choose an Effect</string>
-    <string name="addition">Choose a Addition</string>
+    <string name="addition">Choose an Addition</string>
     <string name="go_to_save">Save</string>
+
+    <!--For SavePage-->
+    <string name="image_view_des_save">Final Image</string>
+    <string name="save">Save!</string>
 </resources>

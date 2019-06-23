@@ -16,10 +16,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.OutputStream
+import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -109,13 +106,12 @@ class FirstPage : AppCompatActivity() {
                 try {
                     //To show the image gotten
                     val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
-                    Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
                     selectedImage!!.setImageBitmap(bitmap)
                     bitmapToFile(bitmap) //To save the temp image
                     imageFile = bitmap
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Failed.", Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -127,9 +123,7 @@ class FirstPage : AppCompatActivity() {
                 val bitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
                 selectedImage!!.setImageBitmap(bitmap)
                 imageFile = bitmap
-
-                Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show()
-            } else Toast.makeText(this, "Failed!", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(this, "Failed.", Toast.LENGTH_SHORT).show()
         }
     }
 

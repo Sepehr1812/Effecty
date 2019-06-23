@@ -1,6 +1,7 @@
 package com.example.effecty;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -10,7 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 public class SecondPage extends AppCompatActivity {
-    private Bitmap image;
+    static Bitmap image;
     private ImageView imageView;
 
     @Override
@@ -28,6 +29,7 @@ public class SecondPage extends AppCompatActivity {
         Button paintButton = findViewById(R.id.paint_button);
         Button effectButton = findViewById(R.id.effect_button);
         Button additionButton = findViewById(R.id.addition_button);
+        Button saveButton = findViewById(R.id.save_button);
         imageView.setImageBitmap(image);
 
         resizeButton.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +72,12 @@ public class SecondPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 chooseAddition();
+            }
+        });
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToSavePage();
             }
         });
     }
@@ -143,5 +151,10 @@ public class SecondPage extends AppCompatActivity {
             }
         });
         additionsDialog.show();
+    }
+
+    public void goToSavePage() {
+        Intent saveIntent = new Intent(this, SavePage.class);
+        startActivity(saveIntent);
     }
 }
