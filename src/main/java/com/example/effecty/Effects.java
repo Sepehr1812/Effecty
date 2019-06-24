@@ -2,7 +2,7 @@ package com.example.effecty;
 
 import android.graphics.Bitmap;
 
-public class Effects {
+class Effects {
 
     static void effect1(Bitmap image) {
         System.out.println("Effect 1 Applied.");

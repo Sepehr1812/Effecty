@@ -1,4 +1,4 @@
 package com.example.effecty;
 
-public class Addition {
+class Addition {
 }
